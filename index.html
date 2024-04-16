@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kai's Quest to Save the Village</title>
+<style>
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('images/water.png');
+  
+  }
+  #stage-image {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #game {
+    width: 90%;
+    height: 700px;
+    font-size: 70px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* border: 2px solid #000; */
+    background: rgba(198, 203, 236, 0.3);
+    color: white; 
+    text-align: center;
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    font-size: 48px;
+    letter-spacing: 2px;
+  }
+  #story {
+    margin-bottom: 70px;
+   /* background-image: url('images/village.png');*/
+
+  }
+  #choices {
+    margin-top: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  button {
+    margin-top: 50%;
+    background-color: #1e1e58; /* Green background */
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    border: none; /* No borders */
+    color: white; /* White text */
+    padding: 40px 80px; /* Increased padding for larger size */    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 45px; /* Larger font size */
+    font-weight: bold; /* Bold font */
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    border-radius: 8px; /* Rounded corners */
+  }
+  button:hover {
+    background-color: #8a0332b4;
+    color: white;/* Darker shade of green on hover */
+  }
+</style>
+</head>
+<body>
+<script>
+
+const stages = [
+  //STAGE 0
+   {
+    // const img = document.createElement('img'),
+    // img.src = 'https://example.com/image.png',
+    image: "images/kai.png",
+   
+    text: "This is Kai and he lives in the heart of a quaint coastal village ",
+    options: [
+      { text: "Ready to Play", action: "advance"}
+
+    ],
+   
+  },
+  //1
+  {
+    image: "images/trash.jpeg",
+
+    text: "Kai notices trash on the beach. Do you want to clean it up now?",
+    options: [
+      { text: "Yes, clean the beach.", action: "advance" },
+      { text: "No, investigate first.", action: "advance" }
+    ],
+  },
+  //2
+  {
+    image: "images/trash.jpeg",
+
+    text: "Kai decides to investigate first.",
+    options: [
+      { text: "Scouring the coastline for clues and piecing together fragments of information. Press to continue", action: "advance" },
+    ],
+  },
+  //3
+  {
+    image: "images/investigate.png",
+    text: "Kai decides to investigate the source of the trash. He finds a trail leading to the factory. What should Kai do next?",
+    options: [
+      { text: "Follow the trail.", action: "advance" },
+      { text: "Go back to clean the beach.", action: "advance" }
+    ],
+    
+  },
+  //4
+  {
+
+    image: "images/factory.png",
+    text: "He finds a trail leading to the factory. What should Kai do next?",
+    options: [
+      { text: "Confront the factory management", action: "advance" },
+      { text: "Make efforts to let the people of the town know", action: "advance" }
+    ],
+    
+  },
+  //5
+  {
+    image: "images/organizing.png",
+    text: "Kai resolves to take action. He sets out to raise awareness among his fellow villagers. From organizing beach clean-ups to distributing pamphlets highlighting the dangers of pollution, Kai becomes a beacon of hope in the community",
+    options: [
+
+      { text: "Continue", action: "advance" }
+    ],
+   
+  },
+  //6
+  {
+    // Kai resolves to take action. Armed with newfound knowledge and unwavering determination, he sets out to raise awareness among his fellow villagers. From organizing beach clean-ups to distributing pamphlets highlighting the dangers of pollution, Kai becomes a beacon of hope in the community. 
+    text: "Kai and the town go to the factory to confront the  expose the factory owner. How should he approach this? ",
+    options: [
+       {text: "Diplomatically", action: "advance"},
+       {text: "Confrontationally", action: "advance"},
+
+    ],
+
+  },
+  //7
+  {
+    // Kai resolves to take action. Armed with newfound knowledge and unwavering determination, he sets out to raise awareness among his fellow villagers. From organizing beach clean-ups to distributing pamphlets highlighting the dangers of pollution, Kai becomes a beacon of hope in the community. 
+    text: "Kai says, It's time to face the consequences of your actions.",
+    options: [
+       {text: "The factory owner faltered, his resolve weakening in the face of their united front. With a defeated sigh, he nodded, acknowledging the truth of her words. Fine, he conceded, his voice heavy with defeat. I'll shut down the factory and clean up the mess we've made.", action: "advance"},
+       {text: "Continue", action: "advance"},
+
+    ],
+
+  },
+  //8
+  {
+  //  text: "hi",
+    // Kai resolves to take action. Armed with newfound knowledge and unwavering determination, he sets out to raise awareness among his fellow villagers. From organizing beach clean-ups to distributing pamphlets highlighting the dangers of pollution, Kai becomes a beacon of hope in the community. 
+   // text: "Based on your responses to this game, you choose all the options that Kai did! Great Job!",
+    options: [
+      {text: "Thanks For Playing!", action: "advance"},
+  //      {text: "Continue", action: "advance"},
+
+    ],
+  },
+];
+
+
+
+function startGame() {
+  currentStage = 0;
+  displayStage();
+}
+//added new
+function showFinalPoints() {
+  const gameContainer = document.getElementById("game");
+  const finalMessage = document.createElement("div");
+  finalMessage.textContent = `Based on your responses to this game, you have scored a total of ${points} points! Great job!`;
+  gameContainer.appendChild(finalMessage);
+
+  
+
+  // Optionally, you can remove the image and choices or display a restart button
+  // Reset the points if the player decides to play again
+}
+
+
+//   const storyElement = document.getElementById('story');
+//   storyElement.textContent = `Based on your responses to this game, you have scored a total of ${points} points! Great job!`;
+  
+//   // Hide choices at the end
+//   const choicesContainer = document.getElementById('choices');
+//   choicesContainer.style.display = 'none';
+  
+//   // Optionally, provide a button to restart the game
+//   const restartButton = document.createElement('button');
+//   restartButton.textContent = 'Play Again';
+//   restartButton.onclick = startGame;
+//   choicesContainer.innerHTML = ''; // Clear previous choices
+//   choicesContainer.appendChild(restartButton);
+//   choicesContainer.style.display = ''; // Show choices container with restart button
+// }
+
+////
+// function updatePointsDisplay() {
+//   const pointsDisplay = document.getElementById('points-display');
+//   if (!pointsDisplay) {
+//     // If the points display element doesn't exist, create it
+//     const gameContainer = document.getElementById('game');
+//     const pointsElem = document.createElement('div');
+//     pointsElem.id = 'points-display';
+//     gameContainer.appendChild(pointsElem);
+//   }
+//   // Update the points display text
+//   // document.getElementById('points-display').textContent = `Points: ${points}`;
+// }
+
+function displayStage() {
+
+  const stage = stages[currentStage];
+  const gameContainer = document.getElementById("game");
+  
+  // Update or create image as needed
+  let imgElem = document.getElementById("stage-image");
+  if (stage.image) {
+    if (!imgElem) {
+      imgElem = document.createElement("img");
+      imgElem.setAttribute("height", "290");
+      imgElem.setAttribute("width", "180");
+      // imgElem.setAttribute("height", "990");
+      // imgElem.setAttribute("width", "980");
+      imgElem.id = "stage-image";
+      gameContainer.insertBefore(imgElem, gameContainer.firstChild);
+    }
+    imgElem.src = stage.image;
+    imgElem.style.display = ''; // Ensure the image is visible
+  } else if (imgElem) {
+    imgElem.style.display = 'none'; // Hide the image if not required
+  }
+  document.getElementById('story').textContent = stage.text;
+  const choicesContainer = document.getElementById('choices');
+  choicesContainer.innerHTML = '';
+  stage.options.forEach((option, index) => {
+    const button = document.createElement('button');
+    button.textContent = option.text;
+    button.onclick = () => handleChoice(index);
+    choicesContainer.appendChild(button);
+  });
+  console.log(stage.image)
+  
+}
+////
+//new code
+let points =0;
+function handleChoice(index) {
+  const choice = stages[currentStage].options[index];
+  if (choice.action === "advance") {
+    if (choice.text === "Yes, clean the beach.") {
+      points += 10; // Award 10 points for cleaning the beach
+    } 
+    if (choice.text === "Follow the trail.") {
+      points += 5; // Award 5 points for a diplomatic approach
+    }
+    if (choice.text === "Make efforts to let the people of the town know") {
+      points += 5; // Award 5 points for a diplomatic approach
+    }
+    if (choice.text === "Confrontationally") {
+      points += 5; // Award 5 points for a diplomatic approach
+    }
+    if (choice.text === "Continue") {
+      points += 5; // Award 5 points for a diplomatic approach
+     }
+   
+     else{
+      points+=1;
+     }
+    // updatePointsDisplay(); // Update points display on the page
+
+    
+  currentStage++;
+  displayStage();
+  if (currentStage == 8 ){
+    showFinalPoints();
+  }
+//   if (currentStage < 8) {
+
+//     displayStage();
+//  //   showFinalPoints();
+//   } else {
+
+//     displayStage();
+//     // The game has reached the end, show final points
+//     showFinalPoints();
+//   }
+
+
+    // if (currentStage == 8){
+    //   displayStage();
+    //   showFinalPoints();
+    // } else {
+    //   displayStage();
+    
+    // if (currentStage == stages.length){
+     
+    
+
+    // }
+  } 
+}
+
+
+
+
+////////
+// function handleChoice(index) {
+//   if (stages[currentStage].options[index].action === "advance") {
+//     currentStage++;
+//     if (currentStage < stages.length-1) {
+//       displayStage();
+      
+//     }
+//     else{
+//       displayStage();
+//       showFinalPoints();
+
+//     }
+  
+    
+//   }
+// }
+
+</script>
+<div id="game">
+  <div id="story">Welcome to Kai's adventure! Click start to begin the journey.</div>
+
+  <div id="choices">
+    <button onclick="startGame()">Start</button>
+  </div>
+  <div id="kai"></div>
+</div>
+</body>
+</html>

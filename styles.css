@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0f7fa;
+  }
+  #game {
+    width: 600px;
+    height: 400px;
+    border: 1px solid #000;
+    background-image: url('beach.jpeg'); /* Add a background image of a beach */
+    background-size: cover;
+    position: relative;
+  }
+  .item {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url('trash.jpeg'); /* Add an icon for trash */
+    background-size: cover;
+  } 
